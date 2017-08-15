@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,19 +7,20 @@
     <meta name="author" content="">
     <link rel="icon" href="#">
 
-    <title>{% block title %}Jumbotron Template for Bootstrap{% endblock %}</title>
+    <title>Jumbotron Template for Bootstrap</title>
 
-    {% block stylesheets %}
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/assets/css/jumbotron.css" rel="stylesheet">
-    {% endblock %}
+    <link href="/assets/jumbotron.css" rel="stylesheet">
 </head>
 
 <body>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+
+@yield('content')
+
+@yield('scripts')
+
 </body>
 </html>
