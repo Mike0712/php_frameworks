@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'admin', 'middleware' => ['check.admin']], function() {
+
+    Route::any('/', 'AdminController@index')->name('admin.posts');
+
+    Route::any('/create', 'AdminController@create')->name('admin.add');
+    Route::any('/edit/{id}', 'AdminController@edit')->name('admin.edit');
+    Route::any('/delete/{id}', 'AdminController@delete')->name('admin.delete');
+
+});
