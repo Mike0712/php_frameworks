@@ -1,6 +1,6 @@
 admin:
     path: /admin
-    defaults: {_controller: AdminBundle:Default:index}
+    defaults: { _controller: AdminBundle:Default:index }
 
 app:
     resource: '@AppBundle/Controller/'
