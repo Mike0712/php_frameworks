@@ -3,9 +3,10 @@
 /* @var $this yii\web\View */
 
 $this->title = 'Здравствуй, Петя!';
+
 ?>
 
-@extends('layouts.main')
+
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
