@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/', 'PageController@index')->name('index');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['check.admin']], function() {
