@@ -18,12 +18,23 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        'css/bootstrap.min.css',
+        'css/font-awesome.min.css',
+        'css/animate.css',
+        'css/slick.css',
+        'css/theme.css',
+        'css/style.css',
+        'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css',
     ];
     public $js = [
+        'js/wow.min.js',
+        'js/slick.min.js',
+        'js/custom.js',
+        'js/popper.min.js',
+        'js/respond.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        'app\assets\VendorAsset'
     ];
 }

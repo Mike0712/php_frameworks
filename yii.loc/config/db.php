@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
+    'class' => yii\db\Connection::class,
+    'dsn' => 'pgsql:host=localhost;dbname=yii2',
+    'username' => 'postgres',
     'password' => '',
     'charset' => 'utf8',
 ];
