@@ -13,34 +13,6 @@ AppAsset::register($this);
 
 $script = <<<JS
 
-function formatRepo (repo) {
-  if (repo.loading) {
-    return repo.text;
-  }
-
-  var markup = "<div class='select2-result-repository clearfix'>" +
-    "<div class='select2-result-repository__avatar'><img src='" + repo.owner.avatar_url + "' /></div>" +
-    "<div class='select2-result-repository__meta'>" +
-      "<div class='select2-result-repository__title'>" + repo.text + "</div>";
-
-  if (repo.description) {
-    markup += "<div class='select2-result-repository__description'>" + repo.text + "</div>";
-  }
-
-  markup += "<div class='select2-result-repository__statistics'>" +
-    "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> " + repo.forks_count + " Forks</div>" +
-    "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> " + repo.stargazers_count + " Stars</div>" +
-    "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> " + repo.watchers_count + " Watchers</div>" +
-  "</div>" +
-  "</div></div>";
-
-  return markup;
-}
-
-function formatRepoSelection (repo) {
-  return repo.text || repo.id;
-}  
-
 $('.search_by_ajax').select2({
   
   ajax: {
@@ -61,21 +33,45 @@ $('.search_by_ajax').select2({
         pagination: {
                         more: (params.page * 30) < data.total_count
                     }
-      };
-    },
-    escapeMarkup: function (markup) { return markup; },
-    tags: false,
-    success: function(data) {
-      console.log(data)   
+        }            
+      },
+      cache: true
     },
     delay: 1500,
     placeholder: 'Поиск по сайту',
-    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+    escapeMarkup: function (markup) { return markup; },
     minimumInputLength: 1,
     templateResult: formatRepo,
     templateSelection: formatRepoSelection  
+  });
+function formatRepo (repo) {
+  if (repo.loading) {
+    return repo.text;
   }
-});
+
+  var markup = "<div class='select2-result-repository clearfix'>" +
+      "<div class='select2-result-repository__meta'>" +
+      "<div class='select2-result-repository__title'>" + repo.title + "</div>";
+  if (repo.description) {
+    markup += "<div class='select2-result-repository__description'>" + repo.title + "</div>";
+  }
+
+  markup += "<div class='select2-result-repository__statistics'>" +
+      "</div>" +
+      "</div></div>";
+
+  return markup;
+}
+
+function formatRepoSelection (repo) {
+  return repo.title || repo.text;
+}
+
+$('.search_by_ajax').on('change',function() {
+    var articleId = $(this).children('.search_by_ajax option:selected').val();
+    $(this).parent('form').attr('action', '/article/' + articleId);      
+})
+
 JS;
 
 $this->registerJs($script, View::POS_END);
@@ -120,9 +116,10 @@ $this->registerJs($script, View::POS_END);
             ?>
             </div>
             <div class="search"><a class="search_icon" href="#"><i class="fa fa-search"></i></a>
-
-                <select class="search_by_ajax search_bar" name="" id=""></select>
-
+            <form id="search_news">
+                <select class="search_by_ajax search_bar" name="id" id=""></select>
+                <input type="submit" value="Поиск">
+            </form>
             </div>
         </div>
     </nav>

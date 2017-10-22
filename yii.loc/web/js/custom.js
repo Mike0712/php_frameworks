@@ -50,11 +50,11 @@ jQuery(document).ready(function() {
         return false;
     });
     $(".search_icon").click(function() {
-        $('.search_bar').fadeOut();
+        $('.search_bara').fadeOut();
         $("i", this).toggleClass("fa-search fa-close");
     });
     $(document).on('click', '.fa-close', function() {
-        $('.search_bar').fadeIn();
+        $('.search_bara').fadeIn();
     });
 });
 

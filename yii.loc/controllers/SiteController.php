@@ -97,7 +97,7 @@ class SiteController extends Controller
             if(!empty(preg_grep ('/' . $search . '/i', $new))){
                 $res[] = [
                           'id' => $k,
-                          'full_name' => $new['title'],
+                          'title' => $new['title'],
                           'name'      => $search
                 ];
             }
