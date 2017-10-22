@@ -12,34 +12,6 @@ AppAsset::register($this);
 // Регистрируем селектор для select2
 
 $script = <<<JS
-$('.search_by_ajax').select2({
-  
-  ajax: {
-    url: '/site/search-news',
-    dataType: 'json',
-    data: function (params) {
-      var query = {
-        search: params.term,
-        type: 'public'
-      }
-      return query;
-    },
-    processResults: function (data) {
-      return {
-        results: data.items
-      };
-    },
-    success: function(data) {
-      console.log(data)   
-    },
-    delay: 1500,
-    placeholder: 'Поиск по сайту',
-    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-    minimumInputLength: 1,
-    templateResult: formatRepo,
-    templateSelection: formatRepoSelection  
-  }
-});
 
 function formatRepo (repo) {
   if (repo.loading) {
@@ -49,10 +21,10 @@ function formatRepo (repo) {
   var markup = "<div class='select2-result-repository clearfix'>" +
     "<div class='select2-result-repository__avatar'><img src='" + repo.owner.avatar_url + "' /></div>" +
     "<div class='select2-result-repository__meta'>" +
-      "<div class='select2-result-repository__title'>" + repo.full_name + "</div>";
+      "<div class='select2-result-repository__title'>" + repo.text + "</div>";
 
   if (repo.description) {
-    markup += "<div class='select2-result-repository__description'>" + repo.description + "</div>";
+    markup += "<div class='select2-result-repository__description'>" + repo.text + "</div>";
   }
 
   markup += "<div class='select2-result-repository__statistics'>" +
@@ -66,8 +38,44 @@ function formatRepo (repo) {
 }
 
 function formatRepoSelection (repo) {
-  return repo.full_name || repo.text;
+  return repo.text || repo.id;
 }  
+
+$('.search_by_ajax').select2({
+  
+  ajax: {
+    url: '/site/search-news',
+    dataType: 'json',
+    data: function (params) {
+      var query = {
+        search: params.term,
+        type: 'public',
+        page: params.page,
+      }
+      return query;
+    },
+    processResults: function (data, params) {
+      params.page = params.page || 1;  
+      return {
+        results: data.items,
+        pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+      };
+    },
+    escapeMarkup: function (markup) { return markup; },
+    tags: false,
+    success: function(data) {
+      console.log(data)   
+    },
+    delay: 1500,
+    placeholder: 'Поиск по сайту',
+    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+    minimumInputLength: 1,
+    templateResult: formatRepo,
+    templateSelection: formatRepoSelection  
+  }
+});
 JS;
 
 $this->registerJs($script, View::POS_END);
