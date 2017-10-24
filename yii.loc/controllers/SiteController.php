@@ -12,6 +12,7 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+    public $layout = 'public/main';
     /**
      * @inheritdoc
      */
@@ -61,7 +62,49 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $news = include(__DIR__ . '/../data/news.php');
+
+        return $this->render('index', compact('news'));
+    }
+
+    /*
+     * @return string
+     */
+    public function actionNews()
+    {
+        $news = include(__DIR__ . '/../data/news.php');
+    }
+
+    /*
+     * @return string
+     */
+    public function actionArticle($id)
+    {
+        $news = include(__DIR__ . '/../data/news.php');
+        $article = $news[$id];
+
+        return $this->render('article', compact('article'));
+    }
+
+    public function actionSearchNews()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $search = \Yii::$app->request->get('search');
+        $news = include(__DIR__ . '/../data/news.php');
+        $result = [];
+        foreach ($news as $k => $new){
+            if(!empty(preg_grep ('/' . $search . '/i', $new))){
+                $res[] = [
+                          'id' => $k,
+                          'title' => $new['title'],
+                          'name'      => $search
+                ];
+            }
+        }
+        $result['total_count'] = count($res);
+        $result['items'] = $res;
+        return $result;
     }
 
     /**
@@ -123,9 +166,5 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-    
-    public function actionVasya($name)
-    {
-        return 'Здравствуй, ' . $name .'!';
-    }
+
 }

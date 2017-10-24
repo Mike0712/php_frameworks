@@ -44,7 +44,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'vasya/<name>' => 'site/vasya',
+                'test' => 'test/default',
+                'test/<id:\d+>' => 'test/view',
+                'news' => 'site/news',
+                'article/<id:\d+>' => 'site/article',
             ],
         ],
         

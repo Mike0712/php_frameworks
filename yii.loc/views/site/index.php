@@ -2,89 +2,169 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Здравствуй, Петя!';
+$this->title = 'Главная страница';
 
+use \app\components\News;
 ?>
 
-
-
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        <h1 class="display-3">Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="featured_slider">
+            <h2 class="featured_title">Главная</h2>
+                <?php echo News::widget([
+                    'options' => ['class' => 'slick_slider'],
+                    'tag'     => 'div',
+                    'items'   => $news,
+                    'itemTag' => 'div',
+                    'itemOptions' => [
+                                         'wrapper' => ['class' => 'single_iteam'],
+                                         'a'       => ['class' => 'slider_tittle'],
+                                         'link'    => 'article'
+                                     ]
+                ]) ?>
+        </div>
     </div>
 </div>
-
 <div class="container">
-    <!-- Example row of columns -->
     <div class="row">
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        <div class="col-lg-3 col-md-3 col-sm-4">
+            <div class="left_sidebar">
+                <div class="single_widget">
+                    <h2>Новости месяца</h2>
+                    <ul class="post_nav">
+                        <li>
+                            <figure class="effect-lily"><a href="pages/single_page.html"><img src="images/270x150x4.jpg" alt=""></a>
+                                <figcaption><a href="pages/single_page.html">Заголовок новости</a></figcaption>
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        <div class="col-lg-6 col-md-6 col-sm-8">
+            <div class="middle_content">
+                <h2>Свежие новости</h2>
+                <?php echo News::widget([
+                    'options' => ['class' => 'featured_nav'],
+                    'tag'     => 'ul',
+                    'items'   => $news,
+                    'itemTag' => 'li',
+                    'figure'  => 'true',
+                    'itemOptions' => [
+                        'wrapper' => ['class' => 'wow fadeInDown'],
+                        'a'       => [],
+                        'link'    => 'article'
+                    ],
+                ]) ?>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="right_sidebar">
+                <div class="single_widget">
+                    <h2>Популярные новости</h2>
+                    <ul class="ppost_nav wow fadeInDown">
+
+                    </ul>
+                </div>
+                <div class="single_widget">
+                    <ul class="nav nav-tabs custom-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">Recent Post</a></li>
+                        <li role="presentation" class=""><a href="#recentComent" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">Recent Comment</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="mostPopular">
+                            <ul class="ppost_nav wow fadeInDown">
+
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="recentComent">
+                            <ul class="ppost_nav wow fadeInDown">
+                                <li>
+                                    <div class="media"><a class="media-left" href="pages/single_page.html"><img src="images/70x70.jpg" alt=""></a>
+                                        <div class="media-body"><a class="catg_title" href="pages/single_page.html">Aliquam malesuada diam eget turpis varius</a></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="media"><a class="media-left" href="pages/single_page.html"><img src="images/70x70.jpg" alt=""></a>
+                                        <div class="media-body"><a class="catg_title" href="#">Aliquam malesuada diam eget turpis varius</a></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="media"><a class="media-left" href="pages/single_page.html"><img src="images/70x70.jpg" alt=""></a>
+                                        <div class="media-body"><a class="catg_title" href="#">Aliquam malesuada diam eget turpis varius</a></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="media"><a class="media-left" href="#"><img src="images/70x70.jpg" alt=""></a>
+                                        <div class="media-body"><a class="catg_title" href="#">Aliquam malesuada diam eget turpis varius</a></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="media"><a class="media-left" href="#"><img src="images/70x70.jpg" alt=""></a>
+                                        <div class="media-body"><a class="catg_title" href="#">Aliquam malesuada diam eget turpis varius</a></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="media"><a class="media-left" href="#"><img src="images/70x70.jpg" alt=""></a>
+                                        <div class="media-body"><a class="catg_title" href="#">Aliquam malesuada diam eget turpis varius</a></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="media"><a class="media-left" href="#"><img src="images/70x70.jpg" alt=""></a>
+                                        <div class="media-body"><a class="catg_title" href="#">Aliquam malesuada diam eget turpis varius</a></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="media"><a class="media-left" href="#"><img src="images/70x70.jpg" alt=""></a>
+                                        <div class="media-body"><a class="catg_title" href="#">Aliquam malesuada diam eget turpis varius</a></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="media"><a class="media-left" href="#"><img src="images/70x70.jpg" alt=""></a>
+                                        <div class="media-body"><a class="catg_title" href="#">Aliquam malesuada diam eget turpis varius</a></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="media"><a class="media-left" href="#"><img src="images/70x70.jpg" alt=""></a>
+                                        <div class="media-body"><a class="catg_title" href="#">Aliquam malesuada diam eget turpis varius</a></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="single_widget">
+                    <h2>Categories</h2>
+                    <ul>
+                        <li class="cat-item"><a href="#">Technology</a></li>
+                        <li class="cat-item"><a href="#">Games</a></li>
+                        <li class="cat-item"><a href="#">Business</a></li>
+                        <li class="cat-item"><a href="#">Gallery</a></li>
+                        <li class="cat-item"><a href="#">Slider</a></li>
+                        <li class="cat-item"><a href="#">Life &amp; Style</a></li>
+                        <li class="cat-item"><a href="#">Sports</a></li>
+                    </ul>
+                </div>
+                <div class="single_widget">
+                    <h2>Category Archive</h2>
+                    <select class="catgArchive">
+                        <option>Select Category</option>
+                        <option>Life styles</option>
+                        <option>Sports</option>
+                        <option>Technology</option>
+                        <option>Treads</option>
+                    </select>
+                </div>
+                <div class="single_widget">
+                    <h2>Links</h2>
+                    <ul>
+                        <li><a href="#">Log in</a></li>
+                        <li><a href="#">Entries RSS</a></li>
+                        <li><a href="#">Comment RSS</a></li>
+                        <li><a href="#">Wordpress.org</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-
-    <hr>
-
-    <footer>
-        <p>&copy; Company 2017</p>
-    </footer>
-</div> <!-- /container -->
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="/assets/js/jquery.min.js"><\/script>')</script>
-<script src="/assets/js/popper.min.js"></script>
-<script src="/assets/js//bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="/assets/js/ie10-viewport-bug-workaround.js"></script>
-
+</div>
