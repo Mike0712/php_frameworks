@@ -19,6 +19,7 @@ $faker->data = 'authors';
 $faker->execute();
 ```
 Промежуточная таблица была заполнена вручную.
+Еще бы хотелось отметить, что для моделей было реализовано автозаполнение полей created_at и updated_at (то что в laravel есть сразу из коробки). В модели былы переопределен метод behaviors. В поведении был задействован класс yii\behaviors\TimestampBehavior. Поскольку поведение одинаково для всех моделей, этом метод был временно вынесен в трейт. Хотя это не очень хороший вприант на случай если в одной из моделей потребуется расширить метод behaviors()
 
 2. Были созданы связи: метод getAuthors() в модели Article и getArticles() в модели Author.
 Применение этой связи во view https://github.com/Mike0712/php_frameworks/tree/homework4/yii.loc/views/site/article.php#L119
