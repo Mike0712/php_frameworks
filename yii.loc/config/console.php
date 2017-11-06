@@ -23,13 +23,15 @@ $config = [
         'db' => $db,
     ],
     'params' => $params,
-    /*
     'controllerMap' => [
         'fixture' => [ // Fixture generation command line.
             'class' => 'yii\faker\FixtureController',
         ],
+        'tinker' => [ // Tinker command line.
+            'class' => \Yii2Tinker\TinkerController::class,
+        ],
     ],
-    */
+
 ];
 
 if (YII_ENV_DEV) {

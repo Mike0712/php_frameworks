@@ -115,6 +115,13 @@ $this->title = "Новость: {$article['title']}";
                         <img src="<?php echo $article['image'] ?>">
                     </div>
                     <?php echo $article['content'] ?>
+                    <?php $names = [] ?>
+                    <?php foreach ($article->authors as $author): ?>
+                        <?php $names[] = $author->first_name . ' ' . $author->last_name ?>
+                    <?php endforeach; ?>
+                    <h3>
+                        <?php echo implode(', ', $names); ?>
+                    </h3>
                 </div>
             </div>
         </div>

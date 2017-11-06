@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Article;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -62,7 +63,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $news = include(__DIR__ . '/../data/news.php');
+        $news = Article::find()->orderBy('published')->all();
 
         return $this->render('index', compact('news'));
     }
@@ -80,8 +81,7 @@ class SiteController extends Controller
      */
     public function actionArticle($id)
     {
-        $news = include(__DIR__ . '/../data/news.php');
-        $article = $news[$id];
+        $article = Article::findOne($id);
 
         return $this->render('article', compact('article'));
     }
@@ -91,16 +91,14 @@ class SiteController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $search = \Yii::$app->request->get('search');
-        $news = include(__DIR__ . '/../data/news.php');
+        $news = Article::find()->where(['ilike', 'title', $search])->all();
         $result = [];
-        foreach ($news as $k => $new){
-            if(!empty(preg_grep ('/' . $search . '/i', $new))){
-                $res[] = [
-                          'id' => $k,
-                          'title' => $new['title'],
-                          'name'      => $search
-                ];
-            }
+        foreach ($news as $item){
+            $res[] = [
+              'id' => $item->id,
+              'title' => $item->title,
+              'name'  => $search
+            ];
         }
         $result['total_count'] = count($res);
         $result['items'] = $res;
